@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Sidebar from './components/menu/Sidebar';
+import Dashboard from './pages/dashboard/Dashboard';
+import Login from './pages/login/Login';
+import authService from './services/auth';
+import Route from './Route';
+
+
 
 function App() {
+  const { token, setToken } = authService();
+
+  if (!token) {
+    return <Login setToken={setToken} />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Sidebar></Sidebar>
+      <Route />
+    </>
   );
 }
 
